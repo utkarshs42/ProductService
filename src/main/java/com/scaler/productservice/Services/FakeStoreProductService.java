@@ -1,6 +1,7 @@
 package com.scaler.productservice.Services;
 
 
+import com.scaler.productservice.Dtos.fakeStoreProductDto;
 import com.scaler.productservice.Models.Products;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -14,7 +15,10 @@ public class FakeStoreProductService implements ProductService{
 
     @Override
     public Products getProductDetails(Long id){
+       fakeStoreProductDto responseDto = restTemplate.getForObject("https://fakestoreapi.com/products/" +id,
+                                                                    fakeStoreProductDto.class);
 
-        return null;
+        Products product = responseDto.toProducts(responseDto);
+        return product;
     }
 }
