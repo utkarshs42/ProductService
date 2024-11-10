@@ -8,18 +8,21 @@ import org.springframework.web.bind.annotation.*;
 @RestController
 public class ProductController {
     private ProductService productService;
+
     public ProductController(ProductService productService) {
         this.productService = productService;
     }
+
     @GetMapping("/products/{id}")
-    public Products getProductDetails(@PathVariable("id") Long id){
+    public Products getProductDetails(@PathVariable("id") Long id) {
         return productService.getProductDetails(id);
     }
-    @PostMapping("/products")
-    public Products createProduct(@RequestBody createProductRequestDto requestDto){
-        return productService.createProduct(requestDto.getName(),requestDto.getDescription(),
-                                            requestDto.getCategory(),requestDto.getPrice(),
-                                            requestDto.getImage());
-    }
 
+    @PostMapping("/products")
+    public Products createProduct(@RequestBody createProductRequestDto requestDto) {
+        return productService.createProduct(requestDto.getName(), requestDto.getDescription(),
+                requestDto.getCategory(), requestDto.getPrice(),
+                requestDto.getImage());
+    }
 }
+
