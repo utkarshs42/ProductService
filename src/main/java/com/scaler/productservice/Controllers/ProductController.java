@@ -5,6 +5,8 @@ import com.scaler.productservice.Models.Products;
 import com.scaler.productservice.Services.ProductService;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+
 @RestController
 public class ProductController {
     private ProductService productService;
@@ -23,6 +25,10 @@ public class ProductController {
         return productService.createProduct(requestDto.getName(), requestDto.getDescription(),
                 requestDto.getCategory(), requestDto.getPrice(),
                 requestDto.getImage());
+    }
+    @GetMapping("/products")
+    public List<Products> getAllProducts(){
+         return productService.getAllProducts();
     }
 }
 
