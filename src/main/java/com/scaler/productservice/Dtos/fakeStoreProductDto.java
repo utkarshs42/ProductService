@@ -9,7 +9,7 @@ import lombok.Setter;
 @Setter
 public class fakeStoreProductDto {
     private Long id;
-    private String name;
+    private String title;
     private String description;
     private String image;
     private String price;
@@ -18,7 +18,7 @@ public class fakeStoreProductDto {
    public Products toProducts() {
        Products product = new Products();
        product.setId(getId());
-       product.setName(getName());
+       product.setName(getTitle());
        product.setDescription(getDescription());
        product.setImage(getImage());
        product.setPrice(Double.parseDouble(getPrice()));
