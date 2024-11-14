@@ -34,7 +34,7 @@ public class ProductController {
     public List<Products> getAllProducts(){
          return productService.getAllProducts();
     }
-
+/*
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<errorDto> handleNPEException (){
         errorDto error = new errorDto();
@@ -44,13 +44,17 @@ public class ProductController {
         return responseEntity;
     }
     @ExceptionHandler(ProductNotFoundException.class)
-    public ResponseEntity<errorDto> handleProductNotFoundException(){
+    public ResponseEntity<errorDto> handlePNFException(){
         errorDto error = new errorDto();
         error.setMessage("Product not found");
         ResponseEntity<errorDto> responseEntity = new ResponseEntity<>
                                                    (error,HttpStatusCode.valueOf(404));
         return responseEntity;
+        //Exceptions occured in product controller class will be handled here but if this Exception
+        //occured somewhere else it won't get handled and we need to copy paste this logic so we can use advices
+
     }
+ */
 
 
 }
