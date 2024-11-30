@@ -53,7 +53,6 @@ public class DBProductService implements ProductService {
 
     @Override
     public List<Products> getAllProducts() {
-        List<Products> products = productRepository.findAll();
-        return products;
+        return productRepository.findAll();
     }
 }
