@@ -1,10 +1,12 @@
 package com.scaler.productservice.Services;
 
+import com.scaler.productservice.Configruations.RedisConfigruations;
 import com.scaler.productservice.Exceptions.ProductNotFoundException;
 import com.scaler.productservice.Models.Category;
 import com.scaler.productservice.Models.Products;
 import com.scaler.productservice.Repository.CategoryRepository;
 import com.scaler.productservice.Repository.ProductRepository;
+import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,18 +16,27 @@ import java.util.Optional;
 public class DBProductService implements ProductService {
     private ProductRepository productRepository;
     private CategoryRepository categoryRepository;
-    public DBProductService(ProductRepository productRepository, CategoryRepository categoryRepository) {
+    private RedisTemplate<String,Object> redisTemplate;
+    public DBProductService(ProductRepository productRepository, CategoryRepository categoryRepository ,
+                            RedisTemplate<String,Object> redisTemplate) {
         this.productRepository = productRepository;
         this.categoryRepository = categoryRepository;
+        this.redisTemplate = redisTemplate;
     }
 
 
     @Override
     public Products getProductDetails(Long id) throws ProductNotFoundException {
+        Products productfromcache = (Products) redisTemplate.opsForValue().get(String.valueOf(id));
+        if(productfromcache != null) {
+            return productfromcache;
+        }
         Optional<Products> product = productRepository.findById(id);
         if (product.isEmpty()) {
             throw new ProductNotFoundException("Product not found");
         }
+        Products productfromdb = product.get();
+        redisTemplate.opsForValue().set(String.valueOf(id),productfromdb);
         return product.orElse(null);
     }
 
