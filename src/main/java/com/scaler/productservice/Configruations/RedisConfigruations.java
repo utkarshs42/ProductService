@@ -11,6 +11,6 @@ public class RedisConfigruations {
     public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
         RedisTemplate<String, Object> redisTemplate = new RedisTemplate<>();
         redisTemplate.setConnectionFactory(redisConnectionFactory);
-        return redisTemplate;
+        return redisTemplate; 
     }
 }
